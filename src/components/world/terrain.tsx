@@ -28,6 +28,11 @@ const Terrain:React.FC<TerrainProps> = ({posCount, conCount}) =>
         generatePositions(posCount);
         drawCanvasPositions();
         drawRelations();
+        
+        setTimeout(() => { markRelation(posList[0], posList[1]);},5000);
+        setTimeout(() => {selectConnection(posList[0], posList[1])}, 10000);
+        
+       
     },[posCount]);
 
     
@@ -52,10 +57,29 @@ const Terrain:React.FC<TerrainProps> = ({posCount, conCount}) =>
             
             for(let j = 0; j < neighbours.length; j++)
             {
-                drawLine(startPoint, neighbours[j].getPosition());
-                console.log("Drawing Line");
+                drawLine(startPoint, neighbours[j].getPosition(), "red",1);
+              
             }
         }
+    }
+
+    const markRelation = (pos1:Position, pos2:Position) => 
+    {
+        resetConnection(pos1, pos2)
+        drawLine(pos1.getPosition(), pos2.getPosition(), "yellow",1);
+        console.log("Drawing green Line");
+    }
+
+    const selectConnection = (pos1:Position, pos2:Position) => 
+    {
+        resetConnection(pos1, pos2);
+        drawLine(pos1.getPosition(), pos2.getPosition(), "lightgreen",3);
+    }
+
+    const resetConnection = (pos1:Position, pos2:Position) => 
+    {
+       
+        drawLine(pos1.getPosition(), pos2.getPosition(), "#333333", 5);
     }
 
     const getCanvas = ():HTMLElement | null => 
@@ -80,12 +104,13 @@ const Terrain:React.FC<TerrainProps> = ({posCount, conCount}) =>
         
     }
 
-    const drawLine = (start:PositionCords, target:PositionCords) => 
+    const drawLine = (start:PositionCords, target:PositionCords, colorCode:string, lineWidth:number) => 
     {
-        console.log("Drawing Line");
         let canvas:any = getCanvas();
         let drawingContext:CanvasRenderingContext2D = canvas.getContext("2d");
-        drawingContext.strokeStyle = "red";
+        drawingContext.beginPath();
+        drawingContext.lineWidth = lineWidth;
+        drawingContext.strokeStyle = colorCode;
         drawingContext.moveTo(start.x, start.y);
         drawingContext.lineTo(target.x, target.y );
         drawingContext.stroke();

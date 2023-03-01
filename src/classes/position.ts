@@ -50,6 +50,18 @@ class Position
 
     }
 
+    public getConnections():PositionMarker[] 
+    {
+        let conArr:PositionMarker[] = [];
+        
+        for(let i = 0; i < this.connectCount; i++)
+        {
+            conArr.push(this.createPositionMarker(this.neighbours[i]));
+        }
+
+        return conArr;
+    }
+
     private processNeighbours(allPos:Position[])
     {
         
