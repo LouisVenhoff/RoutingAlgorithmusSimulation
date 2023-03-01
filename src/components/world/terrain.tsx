@@ -29,10 +29,6 @@ const Terrain:React.FC<TerrainProps> = ({posCount, conCount}) =>
         drawCanvasPositions();
         drawRelations();
         
-        setTimeout(() => { markRelation(posList[0], posList[1]);},5000);
-        setTimeout(() => {selectConnection(posList[0], posList[1])}, 10000);
-        
-       
     },[posCount]);
 
     
@@ -70,6 +66,12 @@ const Terrain:React.FC<TerrainProps> = ({posCount, conCount}) =>
         console.log("Drawing green Line");
     }
 
+    const remarkRelation = (pos1:Position, pos2:Position) => 
+    {
+        resetConnection(pos1, pos2);
+        drawLine(pos1.getPosition(), pos2.getPosition(), "red", 1);
+    }
+
     const selectConnection = (pos1:Position, pos2:Position) => 
     {
         resetConnection(pos1, pos2);
@@ -78,9 +80,9 @@ const Terrain:React.FC<TerrainProps> = ({posCount, conCount}) =>
 
     const resetConnection = (pos1:Position, pos2:Position) => 
     {
-       
         drawLine(pos1.getPosition(), pos2.getPosition(), "#333333", 5);
     }
+
 
     const getCanvas = ():HTMLElement | null => 
     {
