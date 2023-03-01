@@ -5,11 +5,12 @@ import "./terrainStyle.css";
 type TerrainProps = 
 {
     posCount:number;
+    conCount:number;
 }
 
 
 
-const Terrain:React.FC<TerrainProps> = ({posCount}) => 
+const Terrain:React.FC<TerrainProps> = ({posCount, conCount}) => 
 {
     
     const [posList, setPosList] = useState<Position[]>([]);
@@ -23,7 +24,10 @@ const Terrain:React.FC<TerrainProps> = ({posCount}) =>
     },[]);
 
     useEffect(() => {
-
+        clearCanvas();
+        generatePositions(posCount);
+        drawCanvasPositions();
+        drawRelations();
     },[posCount]);
 
     
@@ -33,7 +37,7 @@ const Terrain:React.FC<TerrainProps> = ({posCount}) =>
         setPosList([]);  
         for(let i = 0; i < count; i++)
         {
-            posList.push(new Position(1000, 600, 3));
+            posList.push(new Position(1000, 600, conCount));
         }
     }
 
@@ -49,6 +53,7 @@ const Terrain:React.FC<TerrainProps> = ({posCount}) =>
             for(let j = 0; j < neighbours.length; j++)
             {
                 drawLine(startPoint, neighbours[j].getPosition());
+                console.log("Drawing Line");
             }
         }
     }
@@ -60,6 +65,7 @@ const Terrain:React.FC<TerrainProps> = ({posCount}) =>
 
     const clearCanvas = () => 
     {
+        setPosList([]);
         let canvas:HTMLCanvasElement = getCanvas() as HTMLCanvasElement;
         let context:any = canvas.getContext("2d");
         context.clearRect(0, 0, canvas.width, canvas.height);
@@ -98,7 +104,6 @@ const Terrain:React.FC<TerrainProps> = ({posCount}) =>
     <div className="terrainDiv">
          <div className="world">
             <canvas id="screen"  width="1000" height="600"/>
-
         </div>
     </div>
    
