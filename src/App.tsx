@@ -13,7 +13,6 @@ function App() {
 
   const settingsChangeHandler = (positionCount:number, conCount:number) => 
   {
-      window.alert(positionCount);
       setPositionCount(positionCount);
       setConCount(conCount);
   }

@@ -29,7 +29,7 @@ const Terrain:React.FC<TerrainProps> = ({posCount, conCount}) =>
         drawCanvasPositions();
         drawRelations();
         
-    },[posCount]);
+    },[posCount, conCount]);
 
     
 
@@ -59,14 +59,14 @@ const Terrain:React.FC<TerrainProps> = ({posCount, conCount}) =>
         }
     }
 
-    const markRelation = (pos1:Position, pos2:Position) => 
+    const markConnection = (pos1:Position, pos2:Position) => 
     {
         resetConnection(pos1, pos2)
         drawLine(pos1.getPosition(), pos2.getPosition(), "yellow",1);
         console.log("Drawing green Line");
     }
 
-    const remarkRelation = (pos1:Position, pos2:Position) => 
+    const remarkConnection = (pos1:Position, pos2:Position) => 
     {
         resetConnection(pos1, pos2);
         drawLine(pos1.getPosition(), pos2.getPosition(), "red", 1);
