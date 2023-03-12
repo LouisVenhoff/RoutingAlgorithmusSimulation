@@ -3,27 +3,27 @@ import logo from './logo.svg';
 import './App.css';
 import Terrain from './components/world/terrain';
 import Toolbar from './components/toolBar/toolbar';
+import { Mode } from './components/toolBar/toolbar';
+
 
 function App() {
   
   
-  const [positionCount, setPositionCount] = useState<number>(0);
-  const [conCount, setConCount] = useState<number>(0);
+  const [mode, setMode] = useState<Mode>(Mode.POSITIONMODE);
   
 
-  const settingsChangeHandler = (positionCount:number, conCount:number) => 
+  const modeChangeHandler = (mode:Mode) => 
   {
-      setPositionCount(positionCount);
-      setConCount(conCount);
+    setMode(mode);
   }
   
   
   
   return (
     <div className="App">
-        <Terrain posCount={positionCount} conCount={conCount}/>
+        <Terrain mode={mode}/>
         <div className="toolbarDiv">
-            <Toolbar settingsCallback={settingsChangeHandler}/>
+            <Toolbar updateModeCallback={modeChangeHandler}/>
         </div>
     </div>
   );

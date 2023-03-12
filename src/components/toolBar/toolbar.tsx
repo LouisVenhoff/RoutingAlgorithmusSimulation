@@ -3,39 +3,40 @@ import "./toolbarStyle.css";
 
 type toolBarProps = 
 {
-    settingsCallback:(positionCount:number, conCount:number) => void;
+    updateModeCallback:(mode:Mode) => void;
+}
+
+enum Mode
+{
+    POSITIONMODE,
+    RELATIONMODE,
+    STARTROUTINGMODE,
+    SPECTATOR,
 }
 
 
 
 
-const Toolbar:React.FC<toolBarProps> = ({settingsCallback}) => 
+const Toolbar:React.FC<toolBarProps> = ({updateModeCallback}) => 
 {
-    const [positionCount, setPositionCount] = useState<string>("0");
-    const [conCount, setConCount] = useState<string>("0");
 
-    const updateSettingsHandler = () => 
+    const updateMode = (mode:Mode) => 
     {
-        
-        let positions:number = parseInt(positionCount);
-        let connections:number = parseInt(conCount);
-        
-        
-        if(positions < connections)
-        {
-            window.alert("Es müssen mehr Knoten als verbindungen bestehen!");
-            return;
-        }
-        settingsCallback(positions, connections);
+        updateModeCallback(mode);
     }
+
+    
+
 
     return(
     <div>
-        Anzahl Knoten:<input type="number" className="toolbarElement" max={100} onChange={(e:any) => {setPositionCount(e.target.value)}}></input>
-        Verbindungen/Knoten:<input type="number" className="toolbarElement" max={100} onChange={(e:any) => {setConCount(e.target.value)}}></input>
-        <button className="toolbarElement" onClick={updateSettingsHandler}>Aktualisieren</button>
+        <button className="toolbarElement" onClick={() => {updateMode(Mode.POSITIONMODE)}}>Position hinzufügen</button>  
+        <button className="toolbarElement" onClick={() => {updateMode(Mode.RELATIONMODE)}}>Verbindungen Zeichnen</button>
+        <button className="toolbarElement" onClick={() => {updateMode(Mode.STARTROUTINGMODE)}}>Starte Routing</button>
+        <button className="toolbarElement" onClick={() => {updateMode(Mode.SPECTATOR)}}>Zeige Kosten</button>
     </div>
     );
 }
 
+export {Mode};
 export default Toolbar;

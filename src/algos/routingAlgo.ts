@@ -5,13 +5,13 @@ import { PositionCords } from "../classes/position";
 abstract class RoutingAlgo
 {
 
-    private posList:Position[];
-    private mark:(pos1:Position, pos2:Position) => void;
-    private select:(pos1:Position, pos2:Position) => void;
-    private remark:(pos1:Position, pos2:Position) => void;
+    protected posList:Position[];
+    protected mark:(pos1:Position, pos2:Position) => void;
+    protected select:(pos1:Position, pos2:Position) => void;
+    protected remark:(pos1:Position, pos2:Position) => void;
 
-    private startPosition:Position;
-    private endPosition:Position;
+    protected startPosition:Position;
+    protected endPosition:Position;
 
     constructor(posList:Position[], mark:(pos1:Position, pos2:Position) => void, select:(pos1:Position, pos2:Position) => void, remark:(pos1:Position, pos2:Position) => void)
     {

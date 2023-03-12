@@ -13,22 +13,25 @@ type PositionMarker =
 
 class Position  
 {
-    private maxX:number;
-    private maxY:number;
-    private connectCount:number;
+   
+    
 
     private xPosition:number = 0;
     private yPosition:number = 0;
-
+    private connectCount:number = 0;
     private neighbours:Position[] = [];
+    private prePosition:Position | null = null;
+    private metricCount:number = 0;
+    private visited:boolean = false;
 
 
-    constructor(maxX:number, maxY:number, connectCount:number)
+    private cost:number = 0;
+   
+
+    constructor(xPosition:number, yPosition:number)
     {
-       this.maxX = maxX;
-       this.maxY = maxY;
-       this.connectCount = connectCount;
-       this.generatePosition();
+      this.xPosition = xPosition;
+      this.yPosition = yPosition;
        
     }
 
@@ -43,13 +46,30 @@ class Position
         {
             return this.neighbours;
         }
-        
-        this.processNeighbours(allPos);
+
+        let filteredPos:Position[] = []
+
+        for(let i = 0; i < allPos.length; i++)   //Hier wird die eigene Position aus den Positionsarray rausgefiltert
+        {
+            if(allPos[i].getPosition().x !== this.getPosition().x && allPos[i].getPosition().y !== this.getPosition().y)
+            {
+                filteredPos.push(allPos[i]);
+            }
+            
+        }
+
+        this.processNeighbours(filteredPos);
         
         return this.neighbours;
 
     }
 
+    public setNeighbours(pos:Position)
+    {
+        this.neighbours.push(pos);
+    }   
+
+   
     public getConnections():PositionMarker[] 
     {
         let conArr:PositionMarker[] = [];
@@ -60,6 +80,96 @@ class Position
         }
 
         return conArr;
+    }
+
+    public getCost():number
+    {
+        return this.cost;
+    }
+
+    public setCost(value:number)
+    {
+        this.cost = value;
+    }
+
+    public getPrePosition():Position | null
+    {
+        return this.prePosition;
+    }
+
+    public setPrePosition(pos:Position)
+    {
+        this.prePosition = pos;
+    }
+
+    public getMetric():number
+    {
+       return this.metricCount; 
+    }
+
+    public setVisited()
+    {
+        this.visited = true; 
+    }
+
+    public getVisited():boolean
+    {
+        return this.visited;
+    }
+
+    public incrementMetric()
+    {
+        if(this.neighbours.length !== 0 && (this.neighbours.length - 1) !== this.metricCount)
+        {
+            this.metricCount++;
+        }
+        else
+        {
+            if(this.neighbours.length != 0)
+            {
+                window.alert("Die Metrik einer Position wurde zurückgesetzt!");
+            }
+        }
+    }
+
+    public calculateNeighbourDistances()
+    {
+        //TODO: 1. Berechne die Distanz zu jedem Nachbarn:
+        //TODO: 3. Gebe jedem Nachbarn seine Distanz + deine eigenen Kosten als Cost parametern
+        //TODO: 3.1 Die Cost des Nachbarn wird nur bearbeitet wenn diese geringer ist seine aktuelle
+
+        if(this.neighbours.length === 0)
+        {
+            throw("First get all Neighbours from this node");
+            return;
+        }
+
+        for(let i = 0; i < this.neighbours.length; i++)
+        {
+            let neigbourPosition:PositionCords = this.neighbours[i].getPosition();
+            let tempDistance:number = this.calculateDistanceTo(neigbourPosition.x, neigbourPosition.y);
+            
+            let tempCost:number = this.cost + tempDistance;
+
+            if(tempCost < this.neighbours[i].getCost())
+            {
+                this.neighbours[i].setCost(tempCost);
+                this.neighbours[i].setPrePosition(this);
+            }
+        
+        }
+
+    }
+
+    public calculateDistanceTo(x:number, y:number):number
+    {
+        let xDiff:number = this.diffCords(this.xPosition, x);  
+        let yDiff:number = this.diffCords(this.yPosition, y);
+        
+        let tempResult:number = Math.pow(xDiff, 2) + Math.pow(yDiff,2);
+
+        return Math.sqrt(tempResult);
+        
     }
 
     private processNeighbours(allPos:Position[])
@@ -78,6 +188,11 @@ class Position
         {
             this.neighbours.push(calculatedPositions[j].pos);
         }
+
+        for(let k = 0; k < allPos.length; k++)
+        {
+
+        }
     }
 
     private createPositionMarker(currentPos:Position):PositionMarker
@@ -92,16 +207,7 @@ class Position
 
     }
 
-    private calculateDistanceTo(x:number, y:number):number
-    {
-        let xDiff:number = this.diffCords(this.xPosition, x);  
-        let yDiff:number = this.diffCords(this.yPosition, y);
-        
-        let tempResult:number = Math.pow(xDiff, 2) + Math.pow(yDiff,2);
-
-        return Math.sqrt(tempResult);
-        
-    }
+    
 
     private diffCords(cordOne:number, cordTwo:number):number
     {
@@ -115,13 +221,6 @@ class Position
         {
             return temp;
         }
-    }
-
-
-    private generatePosition()
-    {
-        this.xPosition = (Math.random() * (this.maxX));
-        this.yPosition = (Math.random() * (this.maxY));
     }
 
 }
