@@ -9,6 +9,7 @@ class DijkstraAlgo extends RoutingAlgo {
     private currentPos: Position;
     private notVisited: Position[] = [];
     private visited: Position[] = [];
+    private resultPath:Position[] = [];
 
 
     constructor(posList: Position[], mark: (pos1: Position, pos2: Position) => void, select: (pos1: Position, pos2: Position) => void, remark: (pos1: Position, pos2: Position) => void) {
@@ -62,7 +63,9 @@ class DijkstraAlgo extends RoutingAlgo {
 
         console.log(this.targetPos);
 
-       
+        this.resolvePath(this.targetPos);
+
+        this.drawPath();
 
     }
 
@@ -136,8 +139,80 @@ class DijkstraAlgo extends RoutingAlgo {
     }
 
 
+    // private resolveResultPath()
+    // {
+    //     let current:Position | null = this.targetPos;
+    //     let temp:Position [] = [];
+
+    //     if(current === null)
+    //     {
+    //         return;
+    //     }
+
+    //     temp.push(current);
+
+    //     while(true)
+    //     {
+    //         if(current == null)
+    //         {
+    //             break;
+    //         }
+            
+    //         let previousPosition:Position | null = current.getPrePosition();
+
+    //         if(previousPosition !== null)
+    //         {
+    //             current = previousPosition;
+    //             temp.push(current);
+    //         }
+    //         else
+    //         {
+    //             break;
+    //         }
+    //     }
+
+    //     this.resultPath = temp.reverse();
+    // }
+
+    private resolvePath(pos:Position | null)
+    {
+        if(pos === null)
+        {
+            return;
+        }
+    
+        this.resultPath.push(pos);
+
+        this.resolvePath(pos.getPrePosition());
+    }
+
+    private drawPath()
+    {
+        if(this.resultPath.length !== 0)
+        {
+            for(let i = 0; i < this.resultPath.length; i++)
+            {
+                if(i === 0)
+                {
+                    this.select(this.resultPath[0], this.resultPath[1]);
+                    continue;
+                }
+                else if(i === this.resultPath.length - 2)
+                {
+                    this.select(this.resultPath[this.resultPath.length - 2], this.resultPath[this.resultPath.length - 1]);
+                    break;
+                }
+
+                this.select(this.resultPath[i], this.resultPath[i + 1]);
+            }
+        }
+    }
+    
+
 
 }
+
+
 
 
 export default DijkstraAlgo;
