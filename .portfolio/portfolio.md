@@ -4,45 +4,38 @@
 - Small weekend project
 
 ## 📌 Introduction
-- 🔍 What is the Dijkstra Algorithm?
-    The Dijkstra Algorithm is an method to find the shortest Path through an graph. While navigating through an graph it generates a tree structure to represent the shortest path
-    from an start node to an target node.
-    An enhancement of the Dijkstra algorithm is the A* algorithm which has much more performance.
-    Typical applications where the Dijkstra Algorithm is used includes:
-    - Network calculations (Find the shortest path through the internet)
-    - GPS Systems (Google Maps, Apple Maps)
-    - Controlling NPC's in video games
-    - Route planning for autonomous robots and drones
-    - Logistic planning
+- 🔍 What is the Dijkstra Algorithm?  
+    The Dijkstra algorithm is a method to find the shortest path through a graph. While navigating through a graph, it generates a tree structure to represent the shortest path  
+    from a start node to a target node.  
+    An enhancement of the Dijkstra algorithm is the A* algorithm, which offers much better performance.  
+    Typical applications where the Dijkstra algorithm is used include:  
+    - Network calculations (finding the shortest path through the internet)  
+    - GPS systems (Google Maps, Apple Maps)  
+    - Controlling NPCs in video games  
+    - Route planning for autonomous robots and drones  
+    - Logistic planning  
 
-- 💡 Project goals
-    - Understanding routing algorithms (Dijkstra, A*)
-    - Some coding fun :D
+- 💡 Project goals  
+    - Understanding routing algorithms (Dijkstra, A*)  
+    - Some coding fun :D  
 
-## 🛠️ Technologies & Tools
-- I used react to create this app. Because the project focuses on algorithms i did not used any CSS preprocessors or other design librarys like tailwind or other third party librarys
+## 🛠️ Technologies & Tools  
+- I used React to create this app. Because the project focuses on algorithms, I did not use any CSS preprocessors or design libraries like Tailwind or other third-party libraries.
 
-## 🧱 Application Structure
-- 🧩 Component structure
-    - The main element of these Application is an canvas which is rendered after the website is loaded. When you press the button "Position hinzufügen (Add Position)" you can click in
-    the canvas to add some nodes. 
-    After placing the nodes you can connect them to build your graph.
-    To connect the nodes you have to click on "Verbindungen Zeichnen (Draw connections) and then click on two nodes to connect them.
-    After you build up your graph, you can click on start routing. The algorithm now calculates the best shortest route from the first to the last node you placed.
-    Because this project focusses only on routing algorithms, i omit functions like selecting the nodes between the route will be generated and used the first and the last node as start and end node.
+## 🧱 Application Structure  
+- 🧩 Component structure  
+    - The main element of this application is a canvas which is rendered after the website is loaded. When you press the button "Position hinzufügen (Add Position)," you can click on  
+    the canvas to add some nodes.  
+    After placing the nodes, you can connect them to build your graph.  
+    To connect the nodes, you have to click on "Verbindungen Zeichnen (Draw connections)" and then click on two nodes to connect them.  
+    After you build up your graph, you can click on "Start Routing." The algorithm then calculates the shortest route from the first to the last node you placed.  
+    Because this project focuses only on routing algorithms, I omitted functions like selecting the nodes between which the route will be generated and used the first and the last node as start and end nodes.
 
-
-## 🚀 Outlook & Ideas for Extension
-- 🧮 Adding more algorithms and play around with them
-- 🗺️ Add function for placing an background image so the use can route through the streets
-- ➡️ Add function for selecing start and end nodes
-- 📈 Add animation to show how the algorithm is routing throug the tree
-
-## 🔄 Dijkstra Algorithm in Action
-- 🧠 Step-by-step explanation of the implementation
-- 🐌 Pathfinding animation
-- 🚧 Handling obstacles
-- 🧑‍💻 Code snipped for Dijstra algortihm
+## 🚀 Outlook & Ideas for Extension  
+- 🧮 Add more algorithms and experiment with them  
+- 🗺️ Add a function for placing a background image so the user can route through streets  
+- ➡️ Add a function for selecting start and end nodes  
+- 📈 Add animation to show how the algorithm routes through the tree 
 
 ### Implementation of a position
 For the position i have created an class which stores following information
