@@ -1,0 +1,5 @@
+{
+    "DocumentName": "Routing algorithm simulation",
+    "Description": "A small react application which simulates the Dijkstra routing algorithm",
+    "Tags": ["javascript", "react", "algorithms"]
+}
