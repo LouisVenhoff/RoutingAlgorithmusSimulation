@@ -3,6 +3,9 @@
 ## Project type
 - Small weekend project
 
+## 🖼️ Screenshot
+![Pricture of an routed graph](https://i.ibb.co/HmL3BLt/Bild-15-06-25-um-03-05.jpg)
+
 ## 📌 Introduction
 - 🔍 What is the Dijkstra Algorithm?  
     The Dijkstra algorithm is a method to find the shortest path through a graph. While navigating through a graph, it generates a tree structure to represent the shortest path  
@@ -167,8 +170,4 @@ private findCheapest(): Position {
     this.notVisited = temp;
 }
 ```
-
-
-## 🖼️ Screenshots / GIFs
-![Pricture of an routed graph](https://i.ibb.co/HmL3BLt/Bild-15-06-25-um-03-05.jpg)
 
